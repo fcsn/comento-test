@@ -30,6 +30,12 @@ export const getters = {
   },
   getList (state) {
     if (state.list.code === 200) {
+      // console.log(state.ads.list[0])
+      // const ad = state.ads.list[0]
+      // return state.list.list.splice(3, 0, ad)
+      // const front = state.list.list.slice(0, 3)
+      // const back = state.list.list.slice(4, 10)
+      // return front.concat(ad, back)
       return state.list.list
     }
   },
@@ -67,8 +73,9 @@ export const actions = {
       }
     }
   },
-  async fetchList ({commit, state}, payload) {
+  async fetchList ({dispatch, commit, state}, payload) {
     try {
+      await dispatch('fetchAds', {page_no: 1, limit: 1})
       const response = await this.$axios.$get(`https://comento.cafe24.com/request.php?page=${payload.page}&ord=${payload.ord}&category=${payload.category}`)
       commit('SET_LIST', response)
       return {
@@ -101,7 +108,7 @@ export const actions = {
   },
   async fetchAds ({commit, state},  payload) {
     try {
-      const response = await this.$axios.$get(`https://comento.cafe24.com/ads.php?page=${payload.num}&limit=${payload.limit}`)
+      const response = await this.$axios.$get(`https://comento.cafe24.com/ads.php?page=${payload.page_no}&limit=${payload.limit}`)
       commit('SET_ADS', response)
       return {
         data: response,

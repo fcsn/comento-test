@@ -1,9 +1,7 @@
 <template>
   <section class="contents-content-id-index">
-    user_no": "94", "email": "mmCj@Ro1V.com", "updated_at": "2018-09-04 19:59:12", "category_no": "1" }
-    no, title, contents
 
-    <div>{{detail.title}}</div>
+    <div>Title: {{detail.title.split(' ')[1]}}</div>
     <div>{{detail.user_no}}</div>
     <div>{{detail.email}}</div>
     <div>{{detail.updated_at}}</div>

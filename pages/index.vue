@@ -4,6 +4,7 @@
     <br>
     <br>
     list: {{list}}
+    {{list.length}}
     <br>
     <br>
     detail: {{detail}}
@@ -12,7 +13,7 @@
     replies: {{replies}}
     <br>
     <br>
-    ads: {{ads}}
+    <!--ads: {{ads}}, {{ads.length}}-->
 
     <!--order 버튼-->
     <button @click="orderChange('asc')">높은 순</button>
@@ -24,7 +25,7 @@
     <table>
       <thead>
       <tr>
-        <th>{{article.category_no}}</th>
+        <th>categ no: {{article.category_no}}</th>
         <th>{{article.no}}</th>
       </tr>
       </thead>
@@ -53,7 +54,7 @@ export default {
     await store.dispatch('fetchCategory')
     await store.dispatch('fetchList', {page: 1, ord: 'asc', category: 1})
     await store.dispatch('fetchDetail', 1)
-    await store.dispatch('fetchAds', {num: 1, limit: 1})
+    // await store.dispatch('fetchAds', {page_no: 1, limit: 1})
   },
   data () {
     return {
@@ -73,9 +74,9 @@ export default {
     detail () {
       return this.$store.getters['getDetail']
     },
-    ads () {
-      return this.$store.getters['getAds']
-    },
+    // ads () {
+    //   return this.$store.getters['getAds']
+    // },
     replies () {
       return this.$store.getters['getReplies']
     }
