@@ -1,23 +1,28 @@
 <template>
   <section class="container">
-    cate: {{categories}}
-    <br>
-    <br>
-    list: {{list}}
-    {{list.length}}
-    <br>
-    <br>
-    detail: {{detail}}
-    <br>
-    <br>
-    replies: {{replies}}
-    <br>
-    <br>
-    ads: {{ads}}, {{ads.length}}
+    <!--cate: {{categories}}-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--list: {{list}}-->
+    <!--{{list.length}}-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--detail: {{detail}}-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--replies: {{replies}}-->
+    <!--<br>-->
+    <!--<br>-->
+    <!--ads: {{ads}}, {{ads.length}}-->
 
     <!--order 버튼-->
     <button @click="orderChange('asc')">높은 순</button>
     <button @click="orderChange('desc')">낮은 순</button>
+
+    <!--order 버튼-->
+    <button @click="categoryChange(1)">사과</button>
+    <button @click="categoryChange(2)">바나나</button>
+    <button @click="categoryChange(3)">코코넛</button>
 
     <!--list/link -->
     <div v-for="(article, index) in list" :key="index" style="cursor: pointer;">
@@ -65,7 +70,8 @@ export default {
   },
   data () {
     return {
-      ord: 'asc'
+      ord: 'asc',
+      category: 'apple'
     }
   },
   components: {
@@ -93,6 +99,12 @@ export default {
       if (this.ord !== ord) {
         await this.$store.dispatch('fetchList', {page: 1, ord: ord, category: 1})
         this.ord = ord
+      }
+    },
+    async categoryChange (category) {
+      if (this.category !== category) {
+        await this.$store.dispatch('fetchList', {page: 1, ord: 'asc', category: category})
+        this.category = category
       }
     }
   }
