@@ -1,59 +1,56 @@
 <template>
   <section class="container">
-    <!--cate: {{categories}}-->
-    <!--<br>-->
-    <!--<br>-->
-    <!--list: {{list}}-->
-    <!--{{list.length}}-->
-    <!--<br>-->
-    <!--<br>-->
-    <!--detail: {{detail}}-->
-    <!--<br>-->
-    <!--<br>-->
-    <!--replies: {{replies}}-->
-    <!--<br>-->
-    <!--<br>-->
-    <!--ads: {{ads}}, {{ads.length}}-->
+    <div class="container-child" style="padding: 3rem 1.5rem;">
 
-    <!--order 버튼-->
-    <button @click="orderChange('asc')">높은 순</button>
-    <button @click="orderChange('desc')">낮은 순</button>
+    <div class="column">
+      <!--order 버튼-->
+      <button class="button is-primary is-outlined" @click="orderChange('asc')">높은 순</button>
+      <button class="button is-primary is-outlined" @click="orderChange('desc')">낮은 순</button>
 
-    <!--order 버튼-->
-    <button @click="categoryChange(1)">사과</button>
-    <button @click="categoryChange(2)">바나나</button>
-    <button @click="categoryChange(3)">코코넛</button>
+      <!--order 버튼-->
+      <button class="button is-link is-outlined" @click="categoryChange(1)">사과</button>
+      <button class="button is-link is-outlined" @click="categoryChange(2)">바나나</button>
+      <button class="button is-link is-outlined" @click="categoryChange(3)">코코넛</button>
+    </div>
+
 
     <!--list/link -->
-    <div v-for="(article, index) in list" :key="index" style="cursor: pointer;">
+    <div v-for="(article, index) in list" :key="index" style="cursor: pointer; padding-top: 1rem;">
     <nuxt-link :to="{ name: 'contents-contentId', params: { contentId: article.category_no ? article.no : 0} }">
-    <table>
-      <thead>
-      <tr>
-        <th>categ no: {{article.category_no}}</th>
-        <th>{{article.no}}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>{{article.email}}</td>
-        <td>{{article.undated_at}}</td>
 
-        <td v-if="index !== 3">{{article.title.split(' ')[1]}}</td>
-        <td v-else>{{article.title}}</td>
+    <div>
 
-        <td v-if="index === 3">
-          <img src="`https://comento.cafe24.com/public/images/${article.img}`"
+      <div>
+      <div>
+        <span v-if="index !== 3">{{article.no}}.</span>
+        <span v-else></span>
+        <span v-if="index !== 3">{{article.category_no | filteredCategory}}</span>
+      </div>
+      </div>
+
+      <div>
+      <div>
+        <span v-if="index !== 3"><small>Author: {{article.email}} | </small></span>
+        <span v-if="index !== 3"><small>{{article.updated_at}}</small></span>
+
+
+        <div v-if="index === 3">
+          <img :src="`https://comento.cafe24.com/public/images/${article.img}`"
                alt="ad">
-        </td>
+        </div>
 
-        <td class="ellipsis">{{article.contents}}</td>
-      </tr>
-      </tbody>
-    </table>
+        <div v-if="index !== 3" style="padding-top: 1rem; font-size: 18px;">{{article.title.split(' ')[1]}}</div>
+        <div v-else style="padding-top: 1rem;">{{article.title}}</div>
+
+        <div class="ellipsis" style="padding-top: 1rem;">{{article.contents}}</div>
+      </div>
+      </div>
+
+    </div>
     </nuxt-link>
     </div>
 
+    </div>
   </section>
 </template>
 
@@ -107,11 +104,17 @@ export default {
         this.category = category
       }
     }
+  },
+  filters: {
+    filteredCategory (category) {
+      if (category === '1') return 'apple'
+      if (category === '2') return 'banana'
+      if (category === '3') return 'coconut'
+    }
   }
 }
 </script>
 
 <style scoped>
-
 </style>
 

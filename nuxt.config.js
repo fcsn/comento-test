@@ -16,6 +16,9 @@ module.exports = {
   modules: [
     '@nuxtjs/axios'
   ],
+  css: [
+    { src: '~/assets/css/main.scss', lang: 'scss' }
+  ],
   axios: {
     proxy: true,
     credentials: true,
