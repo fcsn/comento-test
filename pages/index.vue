@@ -13,7 +13,7 @@
     replies: {{replies}}
     <br>
     <br>
-    <!--ads: {{ads}}, {{ads.length}}-->
+    ads: {{ads}}, {{ads.length}}
 
     <!--order 버튼-->
     <button @click="orderChange('asc')">높은 순</button>
@@ -21,7 +21,7 @@
 
     <!--list/link -->
     <div v-for="(article, index) in list" :key="index" style="cursor: pointer;">
-    <nuxt-link :to="{ name: 'contents-contentId', params: { contentId: article.no } }">
+    <nuxt-link :to="{ name: 'contents-contentId', params: { contentId: article.category_no ? article.no : 0} }">
     <table>
       <thead>
       <tr>
@@ -34,7 +34,14 @@
         <td>{{article.email}}</td>
         <td>{{article.undated_at}}</td>
 
-        <td>{{article.title}}</td>
+        <td v-if="index !== 3">{{article.title.split(' ')[1]}}</td>
+        <td v-else>{{article.title}}</td>
+
+        <td v-if="index === 3">
+          <img src="`https://comento.cafe24.com/public/images/${article.img}`"
+               alt="ad">
+        </td>
+
         <td class="ellipsis">{{article.contents}}</td>
       </tr>
       </tbody>
@@ -54,7 +61,7 @@ export default {
     await store.dispatch('fetchCategory')
     await store.dispatch('fetchList', {page: 1, ord: 'asc', category: 1})
     await store.dispatch('fetchDetail', 1)
-    // await store.dispatch('fetchAds', {page_no: 1, limit: 1})
+    await store.dispatch('fetchAds', {page_no: 1, limit: 1})
   },
   data () {
     return {
@@ -74,9 +81,9 @@ export default {
     detail () {
       return this.$store.getters['getDetail']
     },
-    // ads () {
-    //   return this.$store.getters['getAds']
-    // },
+    ads () {
+      return this.$store.getters['getAds']
+    },
     replies () {
       return this.$store.getters['getReplies']
     }

@@ -48,6 +48,11 @@
       const id = params.contentId
       await store.dispatch('fetchDetail', id)
     },
+    fetch ({ redirect, params }) {
+      if (params.contentId === 0) {
+        redirect('https://www.coupang.com/')
+      }
+    },
     computed: {
       detail () {
         return this.$store.getters['getDetail']

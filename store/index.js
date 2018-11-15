@@ -31,11 +31,11 @@ export const getters = {
   getList (state) {
     if (state.list.code === 200) {
       // console.log(state.ads.list[0])
-      // const ad = state.ads.list[0]
+      const ad = state.ads.list[0]
       // return state.list.list.splice(3, 0, ad)
-      // const front = state.list.list.slice(0, 3)
-      // const back = state.list.list.slice(4, 10)
-      // return front.concat(ad, back)
+      const front = state.list.list.slice(0, 3)
+      const back = state.list.list.slice(4, state.list.list.length)
+      return front.concat(ad, back)
       return state.list.list
     }
   },
